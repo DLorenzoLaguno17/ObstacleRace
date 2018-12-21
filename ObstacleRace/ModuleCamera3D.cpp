@@ -11,7 +11,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = vec3(0.0f, 1.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
+	Position = vec3(0.0f, 4.0f, -8.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 }
 
@@ -51,7 +51,6 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
 
 	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
@@ -93,7 +92,9 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 		}
 
+
 		Position = Reference + Z * length(Position);
+		Position;
 	}
 
 	// Recalculate matrix -------------
@@ -132,7 +133,6 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 
 	CalculateViewMatrix();
 }
-
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const vec3 &Movement)
