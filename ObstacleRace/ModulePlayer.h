@@ -22,7 +22,10 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
+	vec3 initialCarPosition;
+	vec3 initialForwardVector;
 	float turn;
 	float acceleration;
 	float brake;
+	bool goingForward = false;
 };

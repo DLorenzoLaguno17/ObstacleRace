@@ -21,8 +21,8 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
+	car.chassis_size.Set(2, 1.5, 5);
+	car.chassis_offset.Set(0, 1.2, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
@@ -98,7 +98,9 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 0);
-	
+	initialCarPosition = vehicle->GetPosition();
+	initialForwardVector = vehicle->GetForwardVector();
+
 	return true;
 }
 
@@ -116,8 +118,14 @@ update_status ModulePlayer::Update(float dt)
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		acceleration = MAX_ACCELERATION;
+	{		
+		if (abs(vehicle->GetKmh()) > 1 && !goingForward) {
+			brake = BRAKE_POWER / 4;
+		}
+		else {
+			acceleration = MAX_ACCELERATION;
+			goingForward = true;
+		}
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -134,17 +142,29 @@ update_status ModulePlayer::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		brake = BRAKE_POWER;
+		if (abs(vehicle->GetKmh()) > 1 && goingForward) {
+			brake = BRAKE_POWER;
+		}
+		else {
+			acceleration = -MAX_ACCELERATION;
+			goingForward = false;
+		}
 	}
-
+	
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
+	
+	// To reset the level
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
+		vehicle->Brake(BRAKE_POWER * 4);
+	}
 
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "Obstacle Race / Speed of the car: %.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
 	App->camera->LookAt(vehicle->GetPosition());
