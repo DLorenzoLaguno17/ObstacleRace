@@ -21,6 +21,9 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(0.0f, 0.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	// Playing the music
+	App->audio->PlayMusic("Audio/Music/music.ogg");
+
 	// Creation of the obstacles
 	Cube* test1 = new Cube(5, 10, 5);
 	test1->SetPos(20, 0, 20);

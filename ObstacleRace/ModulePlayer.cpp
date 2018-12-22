@@ -117,8 +117,8 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{		
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
 		if (abs(vehicle->GetKmh()) > 1 && !goingForward) {
 			brake = BRAKE_POWER / 4;
 		}
@@ -128,19 +128,19 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
+		if (turn < TURN_DEGREES)
+			turn += TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		if(turn > -TURN_DEGREES)
+		if (turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		if (abs(vehicle->GetKmh()) > 1 && goingForward) {
 			brake = BRAKE_POWER;
@@ -150,11 +150,11 @@ update_status ModulePlayer::Update(float dt)
 			goingForward = false;
 		}
 	}
-	
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-	
+
 	// To reset the level
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
@@ -172,6 +172,3 @@ update_status ModulePlayer::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
-
-
-
