@@ -24,7 +24,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	void CreateRail(uint number, uint space, int position, Direction direction = VERTICAL);
+	void CreateRail(uint number, uint space, int wallPosition, int y, bool singleWall = false, Direction direction = VERTICAL);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 

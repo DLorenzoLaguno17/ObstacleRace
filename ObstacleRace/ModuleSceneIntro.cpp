@@ -25,14 +25,14 @@ bool ModuleSceneIntro::Start()
 	App->audio->PlayMusic("Audio/Music/music.ogg");
 
 	// Creation of the level
-	CreateRail(10, 7, 10);
+	CreateRail(10, 5, 10, 20);
 
-	int xpos = -17;
+	int xpos = -15;
 
 	for (int i = 0; i < 4; ++i) {
-		xpos += 7;
+		xpos += 6;
 		Cube* c = new Cube(5, 8, 5);
-		c->SetPos(xpos, 0, 0);
+		c->SetPos(xpos, 20, 0);
 
 		if (i % 2 == 0)
 			c->color.Set(Red.r, Red.g, Red.b);
@@ -43,10 +43,18 @@ bool ModuleSceneIntro::Start()
 		cubes.add(c);
 	}
 
-	Plane* p = new Plane(10, 20, 10, 0);
-	//App->physics->AddBody(*, MASS);
-	p->color.Set(White.r, White.g, White.b);
-	planes.add(p);
+	// Creating the floor
+	Cube* plane1 = new Cube(20, 1, 55);
+	plane1->SetPos(0, 16, 27);
+	plane1->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane1, MASS);
+	cubes.add(plane1);
+
+	Cube* plane2 = new Cube(80, 1, 60);
+	plane2->SetPos(15, 16, 84.5f);
+	plane2->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane2, MASS);
+	cubes.add(plane2);
 
 	return ret;
 }
@@ -79,7 +87,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::CreateRail(uint number, uint space, int position, Direction direction) {
+void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int y, bool singleWall, Direction direction) {
 	uint zpos = 0; 
 	uint xpos = 0;
 
@@ -90,28 +98,32 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int position, Directi
 
 		if (direction == VERTICAL) {
 			zpos += space;
-			cr->SetPos(-position, 20, zpos);
-			cl->SetPos(position, 20, zpos);
+			cl->SetPos(wallPosition, y, zpos);
+			if(!singleWall) cr->SetPos(-wallPosition, y, zpos);
 		}
 		else {
 			xpos += space;
-			cr->SetPos(xpos, 20, -position);
-			cl->SetPos(xpos, 20, position);
+			cl->SetPos(xpos, y, wallPosition);
+			if (!singleWall) cr->SetPos(xpos, y, -wallPosition);
 		}
 
 		if (i % 2 == 0) {
-			cr->color.Set(Red.r, Red.g, Red.b);
+			if (!singleWall) cr->color.Set(Red.r, Red.g, Red.b);
 			cl->color.Set(Red.r, Red.g, Red.b);
 		}
 		else {
-			cr->color.Set(White.r, White.g, White.b);
+			if (!singleWall) cr->color.Set(White.r, White.g, White.b);
 			cl->color.Set(White.r, White.g, White.b);
 		}
 
-		App->physics->AddBody(*cr, MASS);
-		cubes.add(cr);
 		App->physics->AddBody(*cl, MASS);
 		cubes.add(cl);
+		if (!singleWall) {
+			App->physics->AddBody(*cr, MASS);
+			cubes.add(cr);
+		}
+
+		if (singleWall) delete cr;
 	}
 }
 
