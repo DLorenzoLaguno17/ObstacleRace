@@ -28,4 +28,5 @@ public:
 	float acceleration;
 	float brake;
 	bool goingForward = false;
+	bool freeCamera = false;
 };

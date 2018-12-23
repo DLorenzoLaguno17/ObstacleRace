@@ -97,7 +97,7 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 0, 0);
+	vehicle->SetPos(0, 0, 10);
 	initialCarPosition = vehicle->GetPosition();
 	initialForwardVector = vehicle->GetForwardVector();
 
@@ -151,6 +151,9 @@ update_status ModulePlayer::Update(float dt)
 		}
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		freeCamera = !freeCamera;
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -167,8 +170,10 @@ update_status ModulePlayer::Update(float dt)
 	sprintf_s(title, "Obstacle Race / Speed of the car: %.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
-	App->camera->LookAt(vehicle->GetPosition());
-	App->camera->Position = (vehicle->GetPosition() - vehicle->GetForwardVector() * 10) + vec3(0, 4, 0);
+	if (!freeCamera) {
+		App->camera->LookAt(vehicle->GetPosition());
+		App->camera->Position = (vehicle->GetPosition() - vehicle->GetForwardVector() * 10) + vec3(0, 4, 0);
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "p2List.h"
 
 #define MAX_SNAKE 2
 
@@ -18,6 +19,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	void CreateRail(uint number, uint space, int x);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
@@ -46,4 +48,6 @@ public:
 	bool created = false;
 	Cube* c1;
 	Cube* c2;
+
+	p2List<Cube*> cubes;
 };
