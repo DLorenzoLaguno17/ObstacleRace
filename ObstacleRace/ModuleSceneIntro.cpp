@@ -3,7 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "PhysBody3D.h"
 
-#define MASS 50000
+#define MASS 0
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -36,12 +36,17 @@ bool ModuleSceneIntro::Start()
 
 		if (i % 2 == 0)
 			c->color.Set(Red.r, Red.g, Red.b);
-		else 
+		else
 			c->color.Set(White.r, White.g, White.b);
 
 		App->physics->AddBody(*c, MASS);
 		cubes.add(c);
 	}
+
+	Plane* p = new Plane(10, 20, 10, 0);
+	//App->physics->AddBody(*, MASS);
+	p->color.Set(White.r, White.g, White.b);
+	planes.add(p);
 
 	return ret;
 }
@@ -68,18 +73,31 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
 		cube->data->Render();
 
+	for (p2List_item<Plane*>* plane = planes.getFirst(); plane != nullptr; plane = plane->next)
+		plane->data->Render();
+
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::CreateRail(uint number, uint space, int x) {
-	uint zpos = 0;
+void ModuleSceneIntro::CreateRail(uint number, uint space, int position, Direction direction) {
+	uint zpos = 0; 
+	uint xpos = 0;
 
 	for (int i = 0; i < number; ++i) {
-		zpos += space;
+
 		Cube* cr = new Cube(5, 8, 5);
-		cr->SetPos(-x, 0, zpos);
 		Cube* cl = new Cube(5, 8, 5);
-		cl->SetPos(x, 0, zpos);
+
+		if (direction == VERTICAL) {
+			zpos += space;
+			cr->SetPos(-position, 20, zpos);
+			cl->SetPos(position, 20, zpos);
+		}
+		else {
+			xpos += space;
+			cr->SetPos(xpos, 20, -position);
+			cl->SetPos(xpos, 20, position);
+		}
 
 		if (i % 2 == 0) {
 			cr->color.Set(Red.r, Red.g, Red.b);

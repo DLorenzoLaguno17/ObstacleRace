@@ -10,6 +10,11 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
+enum Direction {
+	VERTICAL,
+	HORIZONTAL
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -19,7 +24,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	void CreateRail(uint number, uint space, int x);
+	void CreateRail(uint number, uint space, int position, Direction direction = VERTICAL);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
@@ -50,4 +55,5 @@ public:
 	Cube* c2;
 
 	p2List<Cube*> cubes;
+	p2List<Plane*> planes;
 };
