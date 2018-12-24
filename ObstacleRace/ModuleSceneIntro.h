@@ -54,6 +54,11 @@ public:
 	Cube* c1;
 	Cube* c2;
 
+	PhysBody3D* leftDoor = nullptr;
+	PhysBody3D* rightDoor = nullptr;
+	PhysBody3D* leftFrame = nullptr;
+	PhysBody3D* rightFrame = nullptr;
+
 	p2List<Cube*> cubes;
 	p2List<Plane*> planes;
 };

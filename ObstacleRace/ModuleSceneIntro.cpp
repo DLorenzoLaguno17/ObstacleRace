@@ -58,11 +58,33 @@ bool ModuleSceneIntro::Start()
 	CreateRail(9, 5, 170, 20, 130, true, HORIZONTAL);
 	CreateRail(18, 5, 165, 20, 40, true);
 
+	// Creating the doors
+	Cube* cr = new Cube(5, 8, 5);
+	Cube* cl = new Cube(5, 8, 5);
+	cl->SetPos(10, 20, 55);
+	cr->SetPos(-10, 20, 55);
+	cr->color.Set(Green.r, Green.g, Green.b);
+	cl->color.Set(Green.r, Green.g, Green.b);
+	leftFrame = App->physics->AddBody(*cl, MASS);
+	cubes.add(cl);
+	rightFrame = App->physics->AddBody(*cr, MASS);
+	cubes.add(cr);
 
+	Cube* door1 = new Cube(6.5, 8, 1);
+	door1->SetPos(3, 20, 55);
+	door1->color.Set(Blue.r, Blue.g, Blue.b);
+	Cube* door2 = new Cube(6.5, 8, 1);
+	door2->SetPos(-3, 20, 55);
+	door2->color.Set(Blue.r, Blue.g, Blue.b);
+	leftDoor = App->physics->AddBody(*door1, 1);
+	cubes.add(door1);
+	rightDoor = App->physics->AddBody(*door2, 1);
+	cubes.add(door2);
 
-
-
-
+	App->physics->AddConstraintP2P(*rightDoor, *rightFrame, { -4, 2, 0 }, { 3.5, 2, 0 });
+	App->physics->AddConstraintP2P(*rightDoor, *rightFrame, { -4, -2, 0 }, { 2.5, -2, 0 });
+	App->physics->AddConstraintP2P(*leftDoor, *leftFrame, { 4, 2, 0 }, { -3.5, 2, 0 });
+	App->physics->AddConstraintP2P(*leftDoor, *leftFrame, { 4, -2, 0 }, { -2.5, -2, 0 });
 
 	int xpos = -15;
 
