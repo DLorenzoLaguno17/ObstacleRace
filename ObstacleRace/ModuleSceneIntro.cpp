@@ -26,6 +26,7 @@ bool ModuleSceneIntro::Start()
 
 	// Creation of the level
 	CreateRail(10, 5, 10, 20);
+	CreateRail(4, 5, 30, 50, true, HORIZONTAL);
 
 	int xpos = -15;
 
