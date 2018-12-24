@@ -28,10 +28,41 @@ bool ModuleSceneIntro::Start()
 	CreateRail(11, 5, 10, 20, 0);
 	CreateRail(4, 5, -25, 20, 55, true, HORIZONTAL);
 	CreateRail(9, 5, -25, 20, 60, true);
-	CreateRail(14, 5, -25, 20, 105, true, HORIZONTAL);
+	CreateRail(14, 5, -25, 20, 100, true, HORIZONTAL);
 	CreateRail(3, 5, 10, 20, 55, true, HORIZONTAL);
-	CreateRail(15, 5, 45, 20, 60, true);
-	CreateRail(9, 5, 25, 20, 5, true);
+	CreateRail(14, 5, 45, 20, 65, true);
+	CreateRail(9, 5, 40, 20, 55, true);
+	CreateRail(11, 5, 25, 20, 5, true);
+	CreateRail(17, 5, 25, 20, 0, true, HORIZONTAL);
+	CreateRail(3, 5, 40, 20, 55, true, HORIZONTAL);
+	CreateRail(5, 5, 55, 20, 30, true);
+	CreateRail(4, 5, 55, 20, 25, true, HORIZONTAL);
+	CreateRail(7, 5, 70, 20, 30, true);
+	CreateRail(8, 5, 50, 20, 65, true, HORIZONTAL);
+	CreateRail(22, 5, 110, 20, 5, true);
+	CreateRail(3, 5, 110, 20, 120, true);
+	CreateRail(12, 5, 50, 20, 130, true, HORIZONTAL);
+	CreateRail(6, 5, 110, 20, 95, true, HORIZONTAL);
+	CreateRail(6, 5, 110, 20, 110, true, HORIZONTAL);
+	CreateRail(10, 5, 110, 20, 120, true, HORIZONTAL);
+	CreateRail(5, 5, 112.5f, 12, 110, true, HORIZONTAL);
+	CreateRail(5, 5, 112.5f, 12, 120, true, HORIZONTAL);
+	CreateRail(17, 5, 115, 20, 15, true);
+	CreateRail(2, 5, 135, 20, 100, true);
+	CreateRail(8, 5, 155, 20, 80, true);
+	CreateRail(9, 5, 135, 20, 35, true);
+	CreateRail(3, 5, 140, 20, 75, true, HORIZONTAL);
+	CreateRail(20, 5, 120, 20, 15, true, HORIZONTAL);
+	CreateRail(9, 5, 140, 20, 35, true, HORIZONTAL);
+	CreateRail(22, 5, 215, 20, 20, true);
+	CreateRail(9, 5, 170, 20, 130, true, HORIZONTAL);
+	CreateRail(18, 5, 165, 20, 40, true);
+
+
+
+
+
+
 
 	int xpos = -15;
 
@@ -68,14 +99,14 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*plane3, MASS);
 	cubes.add(plane3);
 
-	Cube* plane4 = new Cube(50, 1, 25);
-	plane4->SetPos(80, 16, 12.5f);
+	Cube* plane4 = new Cube(55, 1, 25);
+	plane4->SetPos(82.5f, 16, 12.5f);
 	plane4->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane4, MASS);
 	cubes.add(plane4);
 
-	Cube* plane5 = new Cube(35, 1, 40);
-	plane5->SetPos(87, 16, 45);
+	Cube* plane5 = new Cube(40, 1, 40);
+	plane5->SetPos(90, 16, 45);
 	plane5->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane5, MASS);
 	cubes.add(plane5);
@@ -87,18 +118,37 @@ bool ModuleSceneIntro::Start()
 	cubes.add(plane6);
 
 	Cube* plane7 = new Cube(5, 1, 5);
-	plane7->SetPos(117.5f, 16, 112.5f);
+	plane7->SetPos(117.5f, 16, 115);
 	plane7->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane7, MASS);
 	cubes.add(plane7);
 
 	Cube* plane8 = new Cube(5, 1, 5);
-	plane8->SetPos(127.5f, 16, 112.5f);
+	plane8->SetPos(127.5f, 16, 115);
 	plane8->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane8, MASS);
 	cubes.add(plane8);
+
+	Cube* plane7_5 = new Cube(5, 1, 5);
+	plane7_5->SetPos(112.5f, 8, 115);
+	plane7_5->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane7_5, MASS);
+	cubes.add(plane7_5);
+
+	Cube* plane8_5 = new Cube(5, 1, 5);
+	plane8_5->SetPos(122.5f, 8, 115);
+	plane8_5->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane8_5, MASS);
+	cubes.add(plane8_5);
+
+
+	Cube* plane9_5 = new Cube(5, 1, 5);
+	plane9_5->SetPos(132.5f, 8, 115);
+	plane9_5->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane9_5, MASS);
+	cubes.add(plane9_5);
 	
-	Cube* plane9 = new Cube(20, 1, 35);
+	Cube* plane9 = new Cube(20, 1, 40);
 	plane9->SetPos(145, 16, 97.5f);
 	plane9->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane9, MASS);
@@ -166,8 +216,8 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int
 
 		if (direction == VERTICAL) {
 			cl->SetPos(wallPosition, y, zpos);
-			if (!singleWall) cr->SetPos(-wallPosition, y, zpos);
 			zpos += space;
+			if (!singleWall) cr->SetPos(-wallPosition, y, zpos);
 		}
 		else {
 			cl->SetPos(xpos, y, z);
