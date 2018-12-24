@@ -25,13 +25,18 @@ bool ModuleSceneIntro::Start()
 	App->audio->PlayMusic("Audio/Music/music.ogg");
 
 	// Creation of the level
-	CreateRail(10, 5, 10, 20);
-	CreateRail(4, 5, 30, 50, true, HORIZONTAL);
+	CreateRail(11, 5, 10, 20, 0);
+	CreateRail(4, 5, -25, 20, 55, true, HORIZONTAL);
+	CreateRail(9, 5, -25, 20, 60, true);
+	CreateRail(14, 5, -25, 20, 105, true, HORIZONTAL);
+	CreateRail(3, 5, 10, 20, 55, true, HORIZONTAL);
+	CreateRail(15, 5, 45, 20, 60, true);
+	CreateRail(9, 5, 25, 20, 5, true);
 
 	int xpos = -15;
 
 	for (int i = 0; i < 4; ++i) {
-		xpos += 6;
+		xpos += 5;
 		Cube* c = new Cube(5, 8, 5);
 		c->SetPos(xpos, 20, 0);
 
@@ -150,9 +155,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int y, bool singleWall, Direction direction) {
-	uint zpos = 0; 
-	uint xpos = 0;
+void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int y, int z, bool singleWall, Direction direction) {
+	int zpos = z; 
+	int xpos = wallPosition;
 
 	for (int i = 0; i < number; ++i) {
 
@@ -160,13 +165,13 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int
 		Cube* cl = new Cube(5, 8, 5);
 
 		if (direction == VERTICAL) {
-			zpos += space;
 			cl->SetPos(wallPosition, y, zpos);
-			if(!singleWall) cr->SetPos(-wallPosition, y, zpos);
+			if (!singleWall) cr->SetPos(-wallPosition, y, zpos);
+			zpos += space;
 		}
 		else {
+			cl->SetPos(xpos, y, z);
 			xpos += space;
-			cl->SetPos(xpos, y, wallPosition);
 			if (!singleWall) cr->SetPos(xpos, y, -wallPosition);
 		}
 
