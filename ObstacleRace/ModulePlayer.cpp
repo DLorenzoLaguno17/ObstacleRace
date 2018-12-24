@@ -177,6 +177,13 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		freeCamera = !freeCamera;
 
+	// To have an aerial view
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		freeCamera = !freeCamera;
+		App->camera->Position = {113, 152, 8};
+		App->camera->LookAt({ 113, 0, 20 });
+	}
+
 	// The car sound is played
 	if (current_time >= last_time + 2500 && abs(vehicle->GetKmh()) > 20 
 		&& (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)) {
@@ -189,7 +196,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	// To reset the level
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->GetPosition().y < 5) {
 		vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
 		vehicle->Brake(BRAKE_POWER * 4);
 	}
