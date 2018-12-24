@@ -50,13 +50,76 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*plane1, MASS);
 	cubes.add(plane1);
 
-	Cube* plane2 = new Cube(80, 1, 60);
-	plane2->SetPos(15, 16, 84.5f);
+	Cube* plane2 = new Cube(65, 1, 45);
+	plane2->SetPos(7, 16, 77);
 	plane2->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane2, MASS);
 	cubes.add(plane2);
+	
 
+	Cube* plane3 = new Cube(30, 1, 55);
+	plane3->SetPos(40, 16, 27);
+	plane3->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane3, MASS);
+	cubes.add(plane3);
+
+	Cube* plane4 = new Cube(50, 1, 25);
+	plane4->SetPos(80, 16, 12.5f);
+	plane4->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane4, MASS);
+	cubes.add(plane4);
+
+	Cube* plane5 = new Cube(35, 1, 40);
+	plane5->SetPos(87, 16, 45);
+	plane5->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane5, MASS);
+	cubes.add(plane5);
+	
+	Cube* plane6 = new Cube(65, 1, 65);
+	plane6->SetPos(77.5f, 16, 97.5f);
+	plane6->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane6, MASS);
+	cubes.add(plane6);
+
+	Cube* plane7 = new Cube(5, 1, 5);
+	plane7->SetPos(117.5f, 16, 112.5f);
+	plane7->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane7, MASS);
+	cubes.add(plane7);
+
+	Cube* plane8 = new Cube(5, 1, 5);
+	plane8->SetPos(127.5f, 16, 112.5f);
+	plane8->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane8, MASS);
+	cubes.add(plane8);
+	
+	Cube* plane9 = new Cube(20, 1, 35);
+	plane9->SetPos(145, 16, 97.5f);
+	plane9->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane9, MASS);
+	cubes.add(plane9);
+
+	Cube* plane10 = new Cube(20, 1, 80);
+	plane10->SetPos(125, 16, 55);
+	plane10->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane10, MASS);
+	cubes.add(plane10);
+
+	Cube* plane11 = new Cube(80, 1, 20);
+	plane11->SetPos(175, 16, 25);
+	plane11->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane11, MASS);
+	cubes.add(plane11);
+
+	Cube* plane12 = new Cube(50, 1, 95);
+	plane12->SetPos(190, 16, 82.5f);
+	plane12->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane12, MASS);
+	cubes.add(plane12);
+
+	
 	return ret;
+	
 }
 
 // Load assets
