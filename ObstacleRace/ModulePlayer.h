@@ -24,9 +24,20 @@ public:
 	PhysVehicle3D* vehicle;
 	vec3 initialCarPosition;
 	vec3 initialForwardVector;
+
+	// Audios
+	uint engineSound;
+	uint drivingSound;
+
+	// Timers
+	uint last_time = 0;
+	uint current_time;
+
 	float turn;
 	float acceleration;
 	float brake;
+
 	bool goingForward = false;
 	bool freeCamera = false;
+	bool startedEngine = false;
 };

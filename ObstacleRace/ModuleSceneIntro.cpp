@@ -36,7 +36,7 @@ bool ModuleSceneIntro::Start()
 		c->SetPos(xpos, 20, 0);
 
 		if (i % 2 == 0)
-			c->color.Set(Red.r, Red.g, Red.b);
+			c->color.Set(Green.r, Green.g, Green.b);
 		else
 			c->color.Set(White.r, White.g, White.b);
 
@@ -55,8 +55,7 @@ bool ModuleSceneIntro::Start()
 	plane2->SetPos(7, 16, 77);
 	plane2->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane2, MASS);
-	cubes.add(plane2);
-	
+	cubes.add(plane2);	
 
 	Cube* plane3 = new Cube(30, 1, 55);
 	plane3->SetPos(40, 16, 27);
@@ -172,8 +171,8 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int
 		}
 
 		if (i % 2 == 0) {
-			if (!singleWall) cr->color.Set(Red.r, Red.g, Red.b);
-			cl->color.Set(Red.r, Red.g, Red.b);
+			if (!singleWall) cr->color.Set(Green.r, Green.g, Green.b);
+			cl->color.Set(Green.r, Green.g, Green.b);
 		}
 		else {
 			if (!singleWall) cr->color.Set(White.r, White.g, White.b);
