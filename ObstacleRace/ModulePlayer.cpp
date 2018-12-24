@@ -18,6 +18,11 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 
+	// Loading sounds
+	engineSound = App->audio->LoadFx("Audio/Sound Fx/engine.wav");
+	drivingSound = App->audio->LoadFx("Audio/Sound Fx/car.wav");
+
+	// Creating car
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
@@ -101,6 +106,9 @@ bool ModulePlayer::Start()
 	initialCarPosition = vehicle->GetPosition();
 	initialForwardVector = vehicle->GetForwardVector();
 
+	current_time = SDL_GetTicks();
+	last_time = 0;
+
 	return true;
 }
 
@@ -115,16 +123,24 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
-	turn = acceleration = brake = 0.0f;
+	turn = acceleration = brake = 0.0f; 
+	current_time = SDL_GetTicks();
 
+	// Controls of the car
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		if (abs(vehicle->GetKmh()) > 1 && !goingForward) {
 			brake = BRAKE_POWER / 4;
+			startedEngine = false;
 		}
 		else {
 			acceleration = MAX_ACCELERATION;
 			goingForward = true;
+
+			if (!startedEngine) {
+				App->audio->PlayFx(engineSound);
+				startedEngine = true;
+			}
 		}
 	}
 
@@ -144,15 +160,29 @@ update_status ModulePlayer::Update(float dt)
 	{
 		if (abs(vehicle->GetKmh()) > 1 && goingForward) {
 			brake = BRAKE_POWER;
+			startedEngine = false;
 		}
 		else {
 			acceleration = -MAX_ACCELERATION;
 			goingForward = false;
+
+			if (!startedEngine) {
+				App->audio->PlayFx(engineSound);
+				startedEngine = true;
+			}
 		}
 	}
 
+	// To free the camera
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		freeCamera = !freeCamera;
+
+	// The car sound is played
+	if (current_time >= last_time + 2500 && abs(vehicle->GetKmh()) > 20 
+		&& (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)) {
+		App->audio->PlayFx(drivingSound);
+		last_time = current_time;
+	}
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
