@@ -86,6 +86,26 @@ bool ModuleSceneIntro::Start()
 	CreateRail(8, 5, 95, 20, 50, true);
 	CreateRail(5, 5, 85, 20, 90, true, HORIZONTAL);
 
+	//three moving cubes
+	moving_cube1 = new Cube(4, 8, 4);
+	moving_cube1->SetPos(60, 20, 115);
+	moving_cube1->color.Set(Blue.r, Blue.g, Blue.b);
+	App->physics->AddBody(*moving_cube1, 30);
+	cubes.add(moving_cube1);
+
+	moving_cube2 = new Cube(4, 8, 4);
+	moving_cube2->SetPos(80, 20, 115);
+	moving_cube2->color.Set(Blue.r, Blue.g, Blue.b);
+	App->physics->AddBody(*moving_cube2, 30);
+	cubes.add(moving_cube2);
+
+	moving_cube3 = new Cube(4, 8, 4);
+	moving_cube3->SetPos(100, 20, 115);
+	moving_cube3->color.Set(Blue.r, Blue.g, Blue.b);
+	App->physics->AddBody(*moving_cube3, 30);
+	cubes.add(moving_cube3);
+
+
 	// After jump horizontals
 	CreateRail(2, 5, 120, 20, 35, true, HORIZONTAL);
 	CreateRail(1, 5, 120, 20, 60, true, HORIZONTAL);
@@ -259,6 +279,9 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	leftDoor->GetTransform(&door1->transform);
 	rightDoor->GetTransform(&door2->transform);
+	block1->GetTransform(&moving_cube1->transform);
+	block2->GetTransform(&moving_cube2->transform);
+	block3->GetTransform(&moving_cube3->transform);
 
 	for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
 		cube->data->Render();

@@ -51,8 +51,15 @@ public:
 	PhysBody3D* rightDoor = nullptr;
 	PhysBody3D* leftFrame = nullptr;
 	PhysBody3D* rightFrame = nullptr; 
+	PhysBody3D* block1 = nullptr;
+	PhysBody3D* block2 = nullptr;
+	PhysBody3D* block3 = nullptr;
 	Cube* door1 = nullptr;
 	Cube* door2 = nullptr;
+	Cube* moving_cube1 = nullptr;
+	Cube* moving_cube2 = nullptr;
+	Cube* moving_cube3 = nullptr;
+
 
 	p2List<Cube*> cubes;
 	p2List<Plane*> planes;
