@@ -56,12 +56,15 @@ public:
 	PhysBody3D* block3 = nullptr;
 	Cube* door1 = nullptr;
 	Cube* door2 = nullptr;
+
 	Cube* moving_cube1 = nullptr;
 	Cube* moving_cube2 = nullptr;
 	Cube* moving_cube3 = nullptr;
 
+	vec3 pos_cube1 = { 60, 20, 115 };
+	vec3 pos_cube2 = { 80, 20, 115 };
+	vec3 pos_cube3 = { 100, 20, 115 };
 
 	p2List<Cube*> cubes;
-	p2List<Plane*> planes;
 	p2List<Cylinder*>cylinders;
 };

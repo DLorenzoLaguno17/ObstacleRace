@@ -105,7 +105,6 @@ bool ModuleSceneIntro::Start()
 	block3 = App->physics->AddBody(*moving_cube3, 30);
 	cubes.add(moving_cube3);
 
-
 	// After jump horizontals
 	CreateRail(2, 5, 120, 20, 35, true, HORIZONTAL);
 	CreateRail(1, 5, 120, 20, 60, true, HORIZONTAL);
@@ -212,7 +211,6 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*plane8, MASS);
 	cubes.add(plane8);
 
-
 	Cube* planerot1 = new Cube(7.07f, 8, 1);
 	planerot1->SetPos(110.5f, 20, 109.5f);
 	planerot1->SetRotation(-45, { 0,1,0 });
@@ -223,9 +221,23 @@ bool ModuleSceneIntro::Start()
 	Cube* planerot2 = new Cube(7.07f, 8, 1);
 	planerot2->SetPos(110.5f, 20, 120.5f);
 	planerot2->SetRotation(45, { 0,1,0 });
-	planerot2->color.Set(White.r, White.g, White.b);
+	planerot2->color.Set(Green.r, Green.g, Green.b);
 	App->physics->AddBody(*planerot2, MASS);
 	cubes.add(planerot2);
+	
+	Cube* planerot3 = new Cube(7.07f, 8, 1);
+	planerot3->SetPos(105.5f, 20, 94.5f);
+	planerot3->SetRotation(-45, { 0,1,0 });
+	planerot3->color.Set(Green.r, Green.g, Green.b);
+	App->physics->AddBody(*planerot3, MASS);
+	cubes.add(planerot3);
+
+	Cube* planerot4 = new Cube(7.07f, 8, 1);
+	planerot4->SetPos(105.5f, 20, 125.5f);
+	planerot4->SetRotation(45, { 0,1,0 });
+	planerot4->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*planerot4, MASS);
+	cubes.add(planerot4);
 
 	Cube* plane7_5 = new Cube(5, 1, 5);
 	plane7_5->SetPos(112.5f, 12, 115);
@@ -238,7 +250,6 @@ bool ModuleSceneIntro::Start()
 	plane8_5->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane8_5, MASS);
 	cubes.add(plane8_5);
-
 
 	Cube* plane9_5 = new Cube(5, 1, 5);
 	plane9_5->SetPos(132.5f, 12, 115);
@@ -300,9 +311,6 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
 		cube->data->Render();
-
-	for (p2List_item<Plane*>* plane = planes.getFirst(); plane != nullptr; plane = plane->next)
-		plane->data->Render();
 
 	for (p2List_item<Cylinder*>* cylinder = cylinders.getFirst(); cylinder != nullptr; cylinder = cylinder->next)
 		cylinder->data->Render();
