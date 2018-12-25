@@ -317,20 +317,24 @@ void ModuleSceneIntro::CreateCube(float xcube, float height, float ycube, float 
 	plane1->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane1, MASS);
 	cubes.add(plane1);
-
 }
+
 void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float radius, float height) {
 
 	Cylinder* cylinder = new Cylinder(radius, height);
-	cylinder->SetPos(position.x, position.y, position.z);
 	cylinder->SetRotation(90, { 0,0,1 });
-	cylinder->color.Set(Red.r, Red.g, Red.b);
+	cylinder->SetPos(position.x, position.y, position.z);
+
+	if(sensorType == DEATH)
+		cylinder->color.Set(Red.r, Red.g, Red.b);
+	else
+		cylinder->color.Set(Blue.r, Blue.g, Blue.b);
 
 	PhysBody3D* sensor = App->physics->AddBody(*cylinder, MASS, sensorType);
+	cylinders.add(cylinder);
 
 	sensor->body->setCollisionFlags(sensor->body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	sensor->collision_listeners.add(this);
-	cylinders.add(cylinder);
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
