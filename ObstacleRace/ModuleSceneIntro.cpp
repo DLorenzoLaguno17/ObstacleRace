@@ -105,7 +105,6 @@ bool ModuleSceneIntro::Start()
 	block3 = App->physics->AddBody(*moving_cube3, 30);
 	cubes.add(moving_cube3);
 
-
 	// After jump horizontals
 	CreateRail(2, 5, 120, 20, 35, true, HORIZONTAL);
 	CreateRail(1, 5, 120, 20, 60, true, HORIZONTAL);
@@ -191,6 +190,8 @@ bool ModuleSceneIntro::Start()
 	CreateCube(5, 1, 5, 127.5, 16, 115);
 	CreateCube(7.07, 8, 1, 110.5, 20, 109.5,true, -45, { 0,1,0 });
 	CreateCube(7.07, 8, 1, 110.5, 20, 120.5,true, 45, { 0,1,0 });
+	CreateCube(7.07, 8, 1, 105.5, 20, 94.5, true, -45, { 0,1,0 });
+	CreateCube(7.07, 8, 1, 105.5, 20, 125.5, true, 45, { 0,1,0 });
 	CreateCube(5,1,5, 112.5, 12, 115);
 	CreateCube(5, 1, 5, 112.5, 12, 115);
 	CreateCube(5,1,5, 132.5, 12, 115);
@@ -224,8 +225,6 @@ bool ModuleSceneIntro::Start()
 	//CreateCube(20, 1, 20, 168.34, 6, 120);
 
 
-
-	
 	return ret;	
 }
 
@@ -256,9 +255,6 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
 		cube->data->Render();
-
-	for (p2List_item<Plane*>* plane = planes.getFirst(); plane != nullptr; plane = plane->next)
-		plane->data->Render();
 
 	for (p2List_item<Cylinder*>* cylinder = cylinders.getFirst(); cylinder != nullptr; cylinder = cylinder->next)
 		cylinder->data->Render();

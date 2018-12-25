@@ -231,6 +231,10 @@ void ModulePlayer::ResetLevel() {
 	vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0, 0, 0 }); 
 	freeCamera = false;
 	timer = SDL_GetTicks();
+
+	App->scene_intro->block1->SetPos(App->scene_intro->pos_cube1.x, App->scene_intro->pos_cube1.y, App->scene_intro->pos_cube1.z);
+	App->scene_intro->block2->SetPos(App->scene_intro->pos_cube2.x, App->scene_intro->pos_cube2.y, App->scene_intro->pos_cube2.z);
+	App->scene_intro->block3->SetPos(App->scene_intro->pos_cube3.x, App->scene_intro->pos_cube3.y, App->scene_intro->pos_cube3.z);
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
