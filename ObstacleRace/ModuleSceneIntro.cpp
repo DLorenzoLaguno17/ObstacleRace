@@ -25,12 +25,14 @@ bool ModuleSceneIntro::Start()
 	App->audio->PlayMusic("Audio/Music/music.ogg");
 
 	// Creation of the level
+
+	// Outer walls
 	CreateRail(11, 5, 10, 20, 0);
 	CreateRail(4, 5, -25, 20, 55, true, HORIZONTAL);
 	CreateRail(9, 5, -25, 20, 60, true);
 	CreateRail(14, 5, -25, 20, 100, true, HORIZONTAL);
 	CreateRail(3, 5, 10, 20, 55, true, HORIZONTAL);
-	CreateRail(14, 5, 45, 20, 65, true);
+	CreateRail(13, 5, 45, 20, 65, true);
 	CreateRail(9, 5, 40, 20, 55, true);
 	CreateRail(11, 5, 25, 20, 5, true);
 	CreateRail(17, 5, 25, 20, 0, true, HORIZONTAL);
@@ -38,7 +40,7 @@ bool ModuleSceneIntro::Start()
 	CreateRail(5, 5, 55, 20, 30, true);
 	CreateRail(4, 5, 55, 20, 25, true, HORIZONTAL);
 	CreateRail(7, 5, 70, 20, 30, true);
-	CreateRail(8, 5, 50, 20, 65, true, HORIZONTAL);
+	CreateRail(7, 5, 50, 20, 65, true, HORIZONTAL);
 	CreateRail(22, 5, 110, 20, 5, true);
 	CreateRail(3, 5, 110, 20, 120, true);
 	CreateRail(12, 5, 50, 20, 130, true, HORIZONTAL);
@@ -57,6 +59,44 @@ bool ModuleSceneIntro::Start()
 	CreateRail(22, 5, 215, 20, 20, true);
 	CreateRail(9, 5, 170, 20, 130, true, HORIZONTAL);
 	CreateRail(18, 5, 165, 20, 40, true);
+
+	// Obstacles
+	
+	// first room
+	CreateRail(3, 15, -10, 20, 65, true);
+	CreateRail(2, 15, 5, 20, 72.5f, true);
+	CreateRail(3, 15, 20, 20, 65, true);
+
+	//Cylinder
+
+	CreateCylinder(5, 8, 40, 20, 35);
+
+	// mid labirynth
+	CreateRail(2, 5, 60, 20, 15, true);
+	CreateRail(2, 5, 90, 20, 5, true);
+	CreateRail(3, 5, 75, 20, 5, true);
+	CreateRail(5, 5, 85, 20, 20, true, HORIZONTAL);
+	CreateRail(2, 5, 100, 20, 35, true, HORIZONTAL);
+	CreateRail(4, 5, 75, 20, 35, true, HORIZONTAL);
+	CreateRail(3, 5, 85, 20, 50, true, HORIZONTAL);
+	CreateRail(8, 5, 95, 20, 50, true);
+	CreateRail(5, 5, 85, 20, 90, true, HORIZONTAL);
+
+	// after jump horizontals
+	CreateRail(2, 5, 120, 20, 35, true, HORIZONTAL);
+	CreateRail(1, 5, 120, 20, 60, true, HORIZONTAL);
+	CreateRail(1, 5, 130, 20, 50, true, HORIZONTAL);
+	CreateRail(2, 5, 125, 20, 75, true, HORIZONTAL);
+
+	// Cylinders Obstacles
+	
+	CreateCylinder(3, 8, 125, 20, 23);
+	CreateCylinder(1, 8, 140, 20, 20);
+	CreateCylinder(7, 8, 150, 20, 32);
+	CreateCylinder(5, 8, 166, 20, 18);
+	CreateCylinder(9, 8, 185, 20, 35);
+
+
 
 	// Creating the doors
 	Cube* cr = new Cube(5, 8, 5);
@@ -224,6 +264,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	for (p2List_item<Plane*>* plane = planes.getFirst(); plane != nullptr; plane = plane->next)
 		plane->data->Render();
 
+	for (p2List_item<Cylinder*>* cylinder = cylinders.getFirst(); cylinder != nullptr; cylinder = cylinder->next)
+		cylinder->data->Render();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -267,6 +310,14 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int
 	}
 }
 
+void ModuleSceneIntro::CreateCylinder(float radius, float height, int x, int y, int z) {
+	Cylinder* cyl1 = new Cylinder(radius, height);
+	cyl1->SetRotation(90, { 0,0,1 });
+	cyl1->SetPos(x, y, z);
+	cyl1->color.Set(Red.r, Red.g, Red.b);
+	App->physics->AddBody(*cyl1, MASS);
+	cylinders.add(cyl1);
+}
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 }

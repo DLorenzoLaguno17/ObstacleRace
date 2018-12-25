@@ -25,7 +25,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	void CreateRail(uint number, uint space, int wallPosition, int y, int z, bool singleWall = false, Direction direction = VERTICAL);
-
+	void CreateCylinder(float radius, float height, int x, int y, int z);
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 public:
@@ -61,4 +61,5 @@ public:
 
 	p2List<Cube*> cubes;
 	p2List<Plane*> planes;
+	p2List<Cylinder*>cylinders;
 };
