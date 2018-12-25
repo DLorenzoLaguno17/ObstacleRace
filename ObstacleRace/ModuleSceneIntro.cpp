@@ -111,10 +111,10 @@ bool ModuleSceneIntro::Start()
 	rightFrame = App->physics->AddBody(*cr, MASS);
 	cubes.add(cr);
 
-	Cube* door1 = new Cube(6.5, 8, 1);
+	door1 = new Cube(6.5, 8, 1);
 	door1->SetPos(3, 20, 55);
 	door1->color.Set(Blue.r, Blue.g, Blue.b);
-	Cube* door2 = new Cube(6.5, 8, 1);
+	door2 = new Cube(6.5, 8, 1);
 	door2->SetPos(-3, 20, 55);
 	door2->color.Set(Blue.r, Blue.g, Blue.b);
 	leftDoor = App->physics->AddBody(*door1, 1);
@@ -256,6 +256,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+
+	leftDoor->GetTransform(&door1->transform);
+	rightDoor->GetTransform(&door2->transform);
 
 	for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
 		cube->data->Render();

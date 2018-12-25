@@ -223,6 +223,7 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::ResetLevel() {
 	vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
+	vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
 	vehicle->Brake(BRAKE_POWER * 4);
 	timer = SDL_GetTicks();
 }
