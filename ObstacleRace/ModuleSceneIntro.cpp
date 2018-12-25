@@ -49,9 +49,9 @@ bool ModuleSceneIntro::Start()
 	CreateRail(12, 5, 50, 20, 130, true, HORIZONTAL);
 	CreateRail(5, 5, 115, 20, 95, true, HORIZONTAL);
 	CreateRail(5, 5, 115, 20, 110, true, HORIZONTAL);
-	CreateRail(10, 5, 115, 20, 120, true, HORIZONTAL);
-	CreateRail(5, 5, 112.5f, 12, 110, true, HORIZONTAL);
-	CreateRail(5, 5, 112.5f, 12, 120, true, HORIZONTAL);
+	CreateRail(8, 5, 115, 20, 120, true, HORIZONTAL);
+	CreateRail(6, 5, 107.5f, 12, 110, true, HORIZONTAL);
+	CreateRail(6, 5, 107.5f, 12, 120, true, HORIZONTAL);
 	CreateRail(17, 5, 115, 20, 15, true);
 	CreateRail(2, 5, 135, 20, 100, true);
 	CreateRail(8, 5, 155, 20, 80, true);
@@ -119,6 +119,22 @@ bool ModuleSceneIntro::Start()
 	PutCylinderSensor({ 166, 20, 18 }, DEATH, 5, 8);
 	PutCylinderSensor({ 185, 20, 35 }, DEATH, 9, 8);
 
+	// Labirynth
+
+	CreateRail(5, 5, 180, 20, 50, true, HORIZONTAL);
+	CreateRail(7, 5, 190, 20, 55, true);
+	CreateRail(2, 5, 175, 20, 70, true, HORIZONTAL);
+	CreateRail(2, 5, 170, 20, 75, true, HORIZONTAL);
+	CreateRail(4, 5, 175, 20, 90, true, HORIZONTAL);
+	CreateRail(2, 5, 205, 20, 100, true, HORIZONTAL);
+	CreateRail(2, 5, 195, 20, 95, true, HORIZONTAL);
+	CreateRail(2, 5, 195, 20, 115, true, HORIZONTAL);
+	CreateRail(5, 5, 170, 20, 110, true, HORIZONTAL);
+	CreateRail(3, 5, 200, 20, 75, true, HORIZONTAL);
+
+
+
+
 	// Creating the doors
 	Cube* cr = new Cube(5, 8, 5);
 	Cube* cl = new Cube(5, 8, 5);
@@ -164,111 +180,51 @@ bool ModuleSceneIntro::Start()
 	}
 
 	// Creating the floor
-	Cube* plane1 = new Cube(20, 1, 55);
-	plane1->SetPos(0, 16, 27);
-	plane1->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane1, MASS);
-	cubes.add(plane1);
 
-	Cube* plane2 = new Cube(65, 1, 45);
-	plane2->SetPos(7, 16, 77);
-	plane2->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane2, MASS);
-	cubes.add(plane2);	
+	CreateCube(20, 1, 55, 0, 16, 27);
+	CreateCube(65,1,45,7,16,77);
+	CreateCube(30, 1, 55, 40, 16, 27);
+	CreateCube(55,1,25,82.5,16,12.5);
+	CreateCube(40, 1, 40, 90, 16, 45);
+	CreateCube(65, 1, 65, 75.5, 16, 97.5f);
+	CreateCube(5, 1, 5, 117.5, 16, 115);
+	CreateCube(5, 1, 5, 127.5, 16, 115);
+	CreateCube(7.07, 8, 1, 110.5, 20, 109.5,true, -45, { 0,1,0 });
+	CreateCube(7.07, 8, 1, 110.5, 20, 120.5,true, 45, { 0,1,0 });
+	CreateCube(5,1,5, 112.5, 12, 115);
+	CreateCube(5, 1, 5, 112.5, 12, 115);
+	CreateCube(5,1,5, 132.5, 12, 115);
+	CreateCube(20,  1, 40, 145, 16, 97.5);
+	CreateCube(20, 1, 80, 125, 16, 55);
+	CreateCube(80, 1, 20, 175, 16, 25);
+	CreateCube(50, 1, 75, 190, 16, 72.5);
+	CreateCube(20, 1, 20, 205, 16, 120);
+	CreateCube(20, 1, 20, 186.67, 11, 120,true, 30, { 0, 0, 1 });
+	CreateCube(20, 1, 20, 168.34, 6, 120);
+	CreateCube(5, 1, 30, 168.34, 6, 95);
+	CreateCube(4, 1, 20, 168.34, 6, 70);
+	CreateCube(20, 1, 20, 160, 6, 50);
+	CreateCube(10, 1, 5, 145, 6, 37.5);
+	CreateCube(10, 1, 5, 135, 6, 32.5);
+	CreateCube(10, 1, 5, 125, 6, 27.5);
+	CreateCube(10, 1, 5, 115, 6, 22.5);
+	CreateCube(10, 1, 5, 105, 6, 22.5);
+	CreateCube(10, 1, 5, 95, 6, 27.5);
+	CreateCube(10, 1, 5, 85, 6, 32.5);
+	CreateCube(10, 1, 5, 75, 6, 37.5);
+	CreateCube(10, 1, 40, 75, 6, 60);
+	CreateCube(10, 1, 5, 75, 6, 85.5);
+	CreateCube(10, 1, 5, 75, 6, 92.5);
+	CreateCube(10, 1, 5, 75, 6, 100.5);
+	CreateCube(10, 1, 20, 75, 6, 113);
 
-	Cube* plane3 = new Cube(30, 1, 55);
-	plane3->SetPos(40, 16, 27);
-	plane3->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane3, MASS);
-	cubes.add(plane3);
+	CreateCube(20, 1, 20, 75, 6, 133);
 
-	Cube* plane4 = new Cube(55, 1, 25);
-	plane4->SetPos(82.5f, 16, 12.5f);
-	plane4->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane4, MASS);
-	cubes.add(plane4);
-
-	Cube* plane5 = new Cube(40, 1, 40);
-	plane5->SetPos(90, 16, 45);
-	plane5->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane5, MASS);
-	cubes.add(plane5);
-	
-	Cube* plane6 = new Cube(65, 1, 65);
-	plane6->SetPos(77.5f, 16, 97.5f);
-	plane6->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane6, MASS);
-	cubes.add(plane6);
-
-	Cube* plane7 = new Cube(5, 1, 5);
-	plane7->SetPos(117.5f, 16, 115);
-	plane7->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane7, MASS);
-	cubes.add(plane7);
-
-	Cube* plane8 = new Cube(5, 1, 5);
-	plane8->SetPos(127.5f, 16, 115);
-	plane8->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane8, MASS);
-	cubes.add(plane8);
+	PutCylinderSensor({ 75, 10, 133 }, WIN, 3, 8);
+	//CreateCube(20, 1, 20, 168.34, 6, 120);
 
 
-	Cube* planerot1 = new Cube(7.07f, 8, 1);
-	planerot1->SetPos(110.5f, 20, 109.5f);
-	planerot1->SetRotation(-45, { 0,1,0 });
-	planerot1->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*planerot1, MASS);
-	cubes.add(planerot1);
 
-	Cube* planerot2 = new Cube(7.07f, 8, 1);
-	planerot2->SetPos(110.5f, 20, 120.5f);
-	planerot2->SetRotation(45, { 0,1,0 });
-	planerot2->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*planerot2, MASS);
-	cubes.add(planerot2);
-
-	Cube* plane7_5 = new Cube(5, 1, 5);
-	plane7_5->SetPos(112.5f, 12, 115);
-	plane7_5->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane7_5, MASS);
-	cubes.add(plane7_5);
-
-	Cube* plane8_5 = new Cube(5, 1, 5);
-	plane8_5->SetPos(122.5f, 12, 115);
-	plane8_5->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane8_5, MASS);
-	cubes.add(plane8_5);
-
-
-	Cube* plane9_5 = new Cube(5, 1, 5);
-	plane9_5->SetPos(132.5f, 12, 115);
-	plane9_5->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane9_5, MASS);
-	cubes.add(plane9_5);
-	
-	Cube* plane9 = new Cube(20, 1, 40);
-	plane9->SetPos(145, 16, 97.5f);
-	plane9->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane9, MASS);
-	cubes.add(plane9);
-
-	Cube* plane10 = new Cube(20, 1, 80);
-	plane10->SetPos(125, 16, 55);
-	plane10->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane10, MASS);
-	cubes.add(plane10);
-
-	Cube* plane11 = new Cube(80, 1, 20);
-	plane11->SetPos(175, 16, 25);
-	plane11->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane11, MASS);
-	cubes.add(plane11);
-
-	Cube* plane12 = new Cube(50, 1, 95);
-	plane12->SetPos(190, 16, 82.5f);
-	plane12->color.Set(White.r, White.g, White.b);
-	App->physics->AddBody(*plane12, MASS);
-	cubes.add(plane12);
 	
 	return ret;	
 }
@@ -358,6 +314,15 @@ void ModuleSceneIntro::CreateCylinder(float radius, float height, int x, int y, 
 	cylinders.add(cyl1);
 }
 
+void ModuleSceneIntro::CreateCube(float xcube, float height, float ycube, float x, float y, float z, bool rotated, float angle, vec3 u) {
+	Cube* plane1 = new Cube(xcube, height, ycube);
+	plane1->SetPos(x, y, z);
+	if (rotated)plane1->SetRotation(angle, u);
+	plane1->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*plane1, MASS);
+	cubes.add(plane1);
+
+}
 void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float radius, float height) {
 
 	Cylinder* cylinder = new Cylinder(radius, height);
