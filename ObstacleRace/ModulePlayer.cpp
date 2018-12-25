@@ -108,6 +108,7 @@ bool ModulePlayer::Start()
 
 	current_time = SDL_GetTicks();
 	last_time = 0;
+	timer = SDL_GetTicks();
 
 	return true;
 }
@@ -196,15 +197,20 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	// To reset the level
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->GetPosition().y < 5) {
-		vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
-		vehicle->Brake(BRAKE_POWER * 4);
-	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->GetPosition().y < 5)
+		ResetLevel();
 
 	vehicle->Render();
 
+	int time = (int)((SDL_GetTicks() - timer) / 1000);
+
 	char title[80];
-	sprintf_s(title, "Obstacle Race / Speed of the car: %.1f Km/h", vehicle->GetKmh());
+
+	if(time < 10)
+		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 00:0%d", vehicle->GetKmh(), time);
+	else
+		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 00:%d", vehicle->GetKmh(), time);
+
 	App->window->SetTitle(title);
 
 	if (!freeCamera) {
@@ -213,4 +219,14 @@ update_status ModulePlayer::Update(float dt)
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::ResetLevel() {
+	vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
+	vehicle->Brake(BRAKE_POWER * 4);
+	timer = SDL_GetTicks();
+}
+
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2) {
+
 }

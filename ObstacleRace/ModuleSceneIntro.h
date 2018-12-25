@@ -9,6 +9,7 @@
 
 struct PhysBody3D;
 struct PhysMotor3D;
+enum SENSOR;
 
 enum Direction {
 	VERTICAL,
@@ -26,16 +27,10 @@ public:
 	bool CleanUp();
 	void CreateRail(uint number, uint space, int wallPosition, int y, int z, bool singleWall = false, Direction direction = VERTICAL);
 	void CreateCylinder(float radius, float height, int x, int y, int z);
-	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2); 
+	void PutCylinderSensor(vec3 position, SENSOR sensorType, float radius, float height);
 
 public:
-	/*
-	PhysBody3D* pb_snake[MAX_SNAKE];
-	Sphere s_snake[MAX_SNAKE];
-
-	PhysBody3D* pb_snake2[MAX_SNAKE];
-	Sphere s_snake2[MAX_SNAKE];
-	*/
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

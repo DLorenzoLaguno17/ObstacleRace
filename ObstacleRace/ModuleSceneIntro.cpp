@@ -1,7 +1,10 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "Primitive.h"
 #include "PhysBody3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleAudio.h"
 
 #define MASS 0
 
@@ -60,18 +63,19 @@ bool ModuleSceneIntro::Start()
 	CreateRail(9, 5, 170, 20, 130, true, HORIZONTAL);
 	CreateRail(18, 5, 165, 20, 40, true);
 
-	// Obstacles
+	// ------------------------------------------------------
+	// OBSTACLES
+	// ------------------------------------------------------
 	
-	// first room
+	// First room
 	CreateRail(3, 15, -10, 20, 65, true);
 	CreateRail(2, 15, 5, 20, 72.5f, true);
 	CreateRail(3, 15, 20, 20, 65, true);
 
 	//Cylinder
+	PutCylinderSensor({ 40, 20, 35 }, DEATH, 5, 8);
 
-	CreateCylinder(5, 8, 40, 20, 35);
-
-	// mid labirynth
+	// Mid labirynth
 	CreateRail(2, 5, 60, 20, 15, true);
 	CreateRail(2, 5, 90, 20, 5, true);
 	CreateRail(3, 5, 75, 20, 5, true);
@@ -82,21 +86,18 @@ bool ModuleSceneIntro::Start()
 	CreateRail(8, 5, 95, 20, 50, true);
 	CreateRail(5, 5, 85, 20, 90, true, HORIZONTAL);
 
-	// after jump horizontals
+	// After jump horizontals
 	CreateRail(2, 5, 120, 20, 35, true, HORIZONTAL);
 	CreateRail(1, 5, 120, 20, 60, true, HORIZONTAL);
 	CreateRail(1, 5, 130, 20, 50, true, HORIZONTAL);
 	CreateRail(2, 5, 125, 20, 75, true, HORIZONTAL);
 
-	// Cylinders Obstacles
-	
-	CreateCylinder(3, 8, 125, 20, 23);
-	CreateCylinder(1, 8, 140, 20, 20);
-	CreateCylinder(7, 8, 150, 20, 32);
-	CreateCylinder(5, 8, 166, 20, 18);
-	CreateCylinder(9, 8, 185, 20, 35);
-
-
+	// Cylindric obstacles	
+	PutCylinderSensor({ 125, 20, 23 }, DEATH, 3, 8);
+	PutCylinderSensor({ 140, 20, 20 }, DEATH, 1, 8);
+	PutCylinderSensor({ 150, 20, 32 }, DEATH, 7, 8);
+	PutCylinderSensor({ 166, 20, 18 }, DEATH, 5, 8);
+	PutCylinderSensor({ 185, 20, 35 }, DEATH, 9, 8);
 
 	// Creating the doors
 	Cube* cr = new Cube(5, 8, 5);
@@ -233,10 +234,8 @@ bool ModuleSceneIntro::Start()
 	plane12->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane12, MASS);
 	cubes.add(plane12);
-
 	
-	return ret;
-	
+	return ret;	
 }
 
 // Load assets
@@ -314,10 +313,26 @@ void ModuleSceneIntro::CreateCylinder(float radius, float height, int x, int y, 
 	Cylinder* cyl1 = new Cylinder(radius, height);
 	cyl1->SetRotation(90, { 0,0,1 });
 	cyl1->SetPos(x, y, z);
-	cyl1->color.Set(Red.r, Red.g, Red.b);
 	App->physics->AddBody(*cyl1, MASS);
 	cylinders.add(cyl1);
 }
+
+void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float radius, float height) {
+
+	Cylinder* cylinder = new Cylinder(radius, height);
+	cylinder->SetPos(position.x, position.y, position.z);
+	cylinder->SetRotation(90, { 0,0,1 });
+	cylinder->color.Set(Red.r, Red.g, Red.b);
+
+	PhysBody3D* sensor = App->physics->AddBody(*cylinder, MASS, sensorType);
+
+	sensor->body->setCollisionFlags(sensor->body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	sensor->collision_listeners.add(this);
+	cylinders.add(cylinder);
+}
+
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body1->sensorType == DEATH)
+		App->player->ResetLevel();
 }

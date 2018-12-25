@@ -18,6 +18,8 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void ResetLevel();
 
 public:
 
@@ -32,6 +34,7 @@ public:
 	// Timers
 	uint last_time = 0;
 	uint current_time;
+	uint timer;
 
 	float turn;
 	float acceleration;

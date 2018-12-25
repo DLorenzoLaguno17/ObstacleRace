@@ -255,7 +255,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass, SENSOR sensorType)
 {
 	btCollisionShape* colShape = new btCylinderShapeX(btVector3(cylinder.height*0.5f, cylinder.radius, 0.0f));
 	shapes.add(colShape);
@@ -273,6 +273,8 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
+
+	pbody->sensorType = sensorType;
 
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
