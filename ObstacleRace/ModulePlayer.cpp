@@ -202,14 +202,17 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
-	int time = (int)((SDL_GetTicks() - timer) / 1000);
+	int seconds = (int)((SDL_GetTicks() - timer) / 1000);
+	int minutes = (int)(seconds / 60);
 
 	char title[80];
 
-	if(time < 10)
-		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 00:0%d", vehicle->GetKmh(), time);
+	if(seconds % 60 < 10)
+		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 0%d:0%d", vehicle->GetKmh(), minutes, seconds % 60);
+	else if(minutes < 10)
+		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 0%d:%d", vehicle->GetKmh(), minutes, seconds % 60);
 	else
-		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 00:%d", vehicle->GetKmh(), time);
+		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: %d:%d", vehicle->GetKmh(), minutes, seconds % 60);
 
 	App->window->SetTitle(title);
 
@@ -224,7 +227,9 @@ update_status ModulePlayer::Update(float dt)
 void ModulePlayer::ResetLevel() {
 	vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
 	vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
-	vehicle->Brake(BRAKE_POWER * 4);
+	vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0, 0, 0 });
+	vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0, 0, 0 }); 
+	freeCamera = false;
 	timer = SDL_GetTicks();
 }
 
