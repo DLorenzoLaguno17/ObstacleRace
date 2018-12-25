@@ -44,12 +44,12 @@ bool ModuleSceneIntro::Start()
 	CreateRail(4, 5, 55, 20, 25, true, HORIZONTAL);
 	CreateRail(7, 5, 70, 20, 30, true);
 	CreateRail(7, 5, 50, 20, 65, true, HORIZONTAL);
-	CreateRail(22, 5, 110, 20, 5, true);
-	CreateRail(3, 5, 110, 20, 120, true);
+	CreateRail(21, 5, 110, 20, 5, true);
+	CreateRail(2, 5, 110, 20, 125, true);
 	CreateRail(12, 5, 50, 20, 130, true, HORIZONTAL);
-	CreateRail(6, 5, 110, 20, 95, true, HORIZONTAL);
-	CreateRail(6, 5, 110, 20, 110, true, HORIZONTAL);
-	CreateRail(10, 5, 110, 20, 120, true, HORIZONTAL);
+	CreateRail(5, 5, 115, 20, 95, true, HORIZONTAL);
+	CreateRail(5, 5, 115, 20, 110, true, HORIZONTAL);
+	CreateRail(10, 5, 115, 20, 120, true, HORIZONTAL);
 	CreateRail(5, 5, 112.5f, 12, 110, true, HORIZONTAL);
 	CreateRail(5, 5, 112.5f, 12, 120, true, HORIZONTAL);
 	CreateRail(17, 5, 115, 20, 15, true);
@@ -87,22 +87,22 @@ bool ModuleSceneIntro::Start()
 	CreateRail(5, 5, 85, 20, 90, true, HORIZONTAL);
 
 	//three moving cubes
-	moving_cube1 = new Cube(4, 8, 4);
+	moving_cube1 = new Cube(4, 4, 4);
 	moving_cube1->SetPos(60, 20, 115);
 	moving_cube1->color.Set(Blue.r, Blue.g, Blue.b);
-	App->physics->AddBody(*moving_cube1, 30);
+	block1 = App->physics->AddBody(*moving_cube1, 30);
 	cubes.add(moving_cube1);
 
-	moving_cube2 = new Cube(4, 8, 4);
+	moving_cube2 = new Cube(4, 4, 4);
 	moving_cube2->SetPos(80, 20, 115);
 	moving_cube2->color.Set(Blue.r, Blue.g, Blue.b);
-	App->physics->AddBody(*moving_cube2, 30);
+	block2 =App->physics->AddBody(*moving_cube2, 30);
 	cubes.add(moving_cube2);
 
-	moving_cube3 = new Cube(4, 8, 4);
+	moving_cube3 = new Cube(4, 4, 4);
 	moving_cube3->SetPos(100, 20, 115);
 	moving_cube3->color.Set(Blue.r, Blue.g, Blue.b);
-	App->physics->AddBody(*moving_cube3, 30);
+	block3 = App->physics->AddBody(*moving_cube3, 30);
 	cubes.add(moving_cube3);
 
 
@@ -212,21 +212,36 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(*plane8, MASS);
 	cubes.add(plane8);
 
+
+	Cube* planerot1 = new Cube(7.07f, 8, 1);
+	planerot1->SetPos(110.5f, 20, 109.5f);
+	planerot1->SetRotation(-45, { 0,1,0 });
+	planerot1->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*planerot1, MASS);
+	cubes.add(planerot1);
+
+	Cube* planerot2 = new Cube(7.07f, 8, 1);
+	planerot2->SetPos(110.5f, 20, 120.5f);
+	planerot2->SetRotation(45, { 0,1,0 });
+	planerot2->color.Set(White.r, White.g, White.b);
+	App->physics->AddBody(*planerot2, MASS);
+	cubes.add(planerot2);
+
 	Cube* plane7_5 = new Cube(5, 1, 5);
-	plane7_5->SetPos(112.5f, 8, 115);
+	plane7_5->SetPos(112.5f, 12, 115);
 	plane7_5->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane7_5, MASS);
 	cubes.add(plane7_5);
 
 	Cube* plane8_5 = new Cube(5, 1, 5);
-	plane8_5->SetPos(122.5f, 8, 115);
+	plane8_5->SetPos(122.5f, 12, 115);
 	plane8_5->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane8_5, MASS);
 	cubes.add(plane8_5);
 
 
 	Cube* plane9_5 = new Cube(5, 1, 5);
-	plane9_5->SetPos(132.5f, 8, 115);
+	plane9_5->SetPos(132.5f, 12, 115);
 	plane9_5->color.Set(White.r, White.g, White.b);
 	App->physics->AddBody(*plane9_5, MASS);
 	cubes.add(plane9_5);
