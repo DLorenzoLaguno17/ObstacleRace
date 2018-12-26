@@ -17,6 +17,9 @@ struct VehicleInfo;
 enum SENSOR {
 	NONE,
 	WIN, 
+	CHECKPOINT1,
+	CHECKPOINT2,
+	CHECKPOINT3,
 	DEATH
 };
 
@@ -43,8 +46,6 @@ public:
 
 private:
 
-	bool debug;
-
 	btDefaultCollisionConfiguration*	collision_conf;
 	btCollisionDispatcher*				dispatcher;
 	btBroadphaseInterface*				broad_phase;
@@ -58,6 +59,10 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
+
+public:
+
+	bool debug;
 };
 
 class DebugDrawer : public btIDebugDraw

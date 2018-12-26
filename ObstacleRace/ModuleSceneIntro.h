@@ -26,7 +26,6 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	void CreateRail(uint number, uint space, int wallPosition, int y, int z, bool singleWall = false, Direction direction = VERTICAL);
-	void CreateCylinder(float radius, float height, int x, int y, int z);
 	void CreateCube(float xcube, float height, float ycube, float x, float y, float z,bool rotated = false, float angle = 0, vec3 u = { 0,0,0 });
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2); 
 	void PutCylinderSensor(vec3 position, SENSOR sensorType, float radius, float height);
@@ -45,7 +44,6 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 
-	PhysBody3D* test = nullptr;
 	bool created = false;
 
 	PhysBody3D* leftDoor = nullptr;

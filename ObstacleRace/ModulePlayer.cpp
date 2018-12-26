@@ -197,8 +197,57 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	// To reset the level
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || vehicle->GetPosition().y < 5)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || collided) {
 		ResetLevel();
+		vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
+		vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
+		timer = SDL_GetTicks();
+		collided = false;
+	}
+	
+	// To go to the latest checkpoint
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || vehicle->GetPosition().y < 5) {
+
+		ResetLevel();
+
+		if (checkpoint3_Active) {
+			vehicle->SetPos(200, 16, 122);
+			vehicle->RotateBody({ 0, -1, initialForwardVector.y, initialForwardVector.z });
+		}
+		else if (checkpoint2_Active) {
+			vehicle->SetPos(129, 16, 36);
+			vehicle->RotateBody({ 0, 20, initialForwardVector.y, initialForwardVector.z });
+		}
+		else if (checkpoint1_Active) {
+			vehicle->SetPos(73, 16, 84);
+			vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
+		}
+		else {
+			timer = SDL_GetTicks();
+			vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
+			vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
+		}
+	}
+
+	// Go to a checkpoint in debug mode
+	if (App->physics->debug) {
+
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+			ResetLevel();
+			vehicle->SetPos(200, 16, 122);
+			vehicle->RotateBody({ 0, -1, initialForwardVector.y, initialForwardVector.z });
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+			ResetLevel();
+			vehicle->SetPos(129, 16, 36);
+			vehicle->RotateBody({ 0, 20, initialForwardVector.y, initialForwardVector.z });
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+			ResetLevel();
+			vehicle->SetPos(73, 16, 84);
+			vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
+		}
+	}
 
 	vehicle->Render();
 
@@ -225,12 +274,9 @@ update_status ModulePlayer::Update(float dt)
 }
 
 void ModulePlayer::ResetLevel() {
-	vehicle->SetPos(initialCarPosition.x, initialCarPosition.y, initialCarPosition.z);
-	vehicle->RotateBody({ 0, initialForwardVector.x, initialForwardVector.y, initialForwardVector.z });
 	vehicle->vehicle->getRigidBody()->setAngularVelocity({ 0, 0, 0 });
 	vehicle->vehicle->getRigidBody()->setLinearVelocity({ 0, 0, 0 }); 
 	freeCamera = false;
-	timer = SDL_GetTicks();
 
 	App->scene_intro->block1->SetPos(App->scene_intro->pos_cube1.x, App->scene_intro->pos_cube1.y, App->scene_intro->pos_cube1.z);
 	App->scene_intro->block2->SetPos(App->scene_intro->pos_cube2.x, App->scene_intro->pos_cube2.y, App->scene_intro->pos_cube2.z);

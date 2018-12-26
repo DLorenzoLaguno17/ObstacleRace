@@ -43,4 +43,9 @@ public:
 	bool goingForward = false;
 	bool freeCamera = false;
 	bool startedEngine = false;
+	bool collided = false;
+
+	bool checkpoint1_Active = false;
+	bool checkpoint2_Active = false;
+	bool checkpoint3_Active = false;
 };

@@ -222,8 +222,10 @@ bool ModuleSceneIntro::Start()
 	CreateCube(20, 1, 20, 75, 6, 133);
 
 	PutCylinderSensor({ 75, 10, 133 }, WIN, 3, 8);
-	//CreateCube(20, 1, 20, 168.34, 6, 120);
 
+	PutCylinderSensor({ 87.5, 17, 65 }, CHECKPOINT1, 5, 1);
+	PutCylinderSensor({ 125, 17, 42.5 }, CHECKPOINT2, 5, 1);
+	PutCylinderSensor({ 208, 17, 113 }, CHECKPOINT3, 5, 1);
 
 	return ret;	
 }
@@ -232,10 +234,6 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-	delete test;
-
-	/*for (p2List_item<Cube*>* cube = cubes.getFirst(); cube != nullptr; cube = cube->next)
-		cubes.del(cube);*/
 
 	return true;
 }
@@ -302,14 +300,6 @@ void ModuleSceneIntro::CreateRail(uint number, uint space, int wallPosition, int
 	}
 }
 
-void ModuleSceneIntro::CreateCylinder(float radius, float height, int x, int y, int z) {
-	Cylinder* cyl1 = new Cylinder(radius, height);
-	cyl1->SetRotation(90, { 0,0,1 });
-	cyl1->SetPos(x, y, z);
-	App->physics->AddBody(*cyl1, MASS);
-	cylinders.add(cyl1);
-}
-
 void ModuleSceneIntro::CreateCube(float xcube, float height, float ycube, float x, float y, float z, bool rotated, float angle, vec3 u) {
 	Cube* plane1 = new Cube(xcube, height, ycube);
 	plane1->SetPos(x, y, z);
@@ -327,8 +317,10 @@ void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float
 
 	if(sensorType == DEATH)
 		cylinder->color.Set(Red.r, Red.g, Red.b);
-	else
+	else if (sensorType == WIN)
 		cylinder->color.Set(Blue.r, Blue.g, Blue.b);
+	else
+		cylinder->color.Set(Yellow.r, Yellow.g, Yellow.b);
 
 	PhysBody3D* sensor = App->physics->AddBody(*cylinder, MASS, sensorType);
 	cylinders.add(cylinder);
@@ -340,5 +332,13 @@ void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1->sensorType == DEATH)
-		App->player->ResetLevel();
+		App->player->collided = true;
+	else if (body1->sensorType == CHECKPOINT1)
+		App->player->checkpoint1_Active = true;
+	else if (body1->sensorType == CHECKPOINT2)
+		App->player->checkpoint2_Active = true;
+	else if (body1->sensorType == CHECKPOINT3)
+		App->player->checkpoint3_Active = true;
+	else if (body1->sensorType == WIN) {}
+
 }
