@@ -209,6 +209,8 @@ update_status ModulePlayer::Update(float dt)
 	
 	// To go to the latest checkpoint
 	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || vehicle->GetPosition().y < 5) {
+		if (vehicle->GetPosition().y < 5)
+			App->audio->PlayFx(deathSound);
 
 		ResetLevel();
 
