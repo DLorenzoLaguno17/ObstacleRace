@@ -30,6 +30,8 @@ public:
 	// Audios
 	uint engineSound;
 	uint drivingSound;
+	uint deathSound;
+	uint winSound;
 
 	// Timers
 	uint last_time = 0;

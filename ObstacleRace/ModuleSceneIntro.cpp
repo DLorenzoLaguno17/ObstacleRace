@@ -179,7 +179,6 @@ bool ModuleSceneIntro::Start()
 	}
 
 	// Creating the floor
-
 	CreateCube(20, 1, 55, 0, 16, 27);
 	CreateCube(65,1,45,7,16,77);
 	CreateCube(30, 1, 55, 40, 16, 27);
@@ -234,6 +233,13 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
+
+	delete door1;
+	delete door2;
+
+	delete moving_cube1;
+	delete moving_cube2;
+	delete moving_cube3;
 
 	return true;
 }
@@ -331,14 +337,19 @@ void ModuleSceneIntro::PutCylinderSensor(vec3 position, SENSOR sensorType, float
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body1->sensorType == DEATH)
+	if (body1->sensorType == DEATH) {
 		App->player->collided = true;
+		App->audio->PlayFx(App->player->deathSound);
+	}
 	else if (body1->sensorType == CHECKPOINT1)
 		App->player->checkpoint1_Active = true;
 	else if (body1->sensorType == CHECKPOINT2)
 		App->player->checkpoint2_Active = true;
 	else if (body1->sensorType == CHECKPOINT3)
 		App->player->checkpoint3_Active = true;
-	else if (body1->sensorType == WIN) {}
+	else if (body1->sensorType == WIN) {
+		App->player->collided = true;
+		App->audio->PlayFx(App->player->winSound);
+	}
 
 }

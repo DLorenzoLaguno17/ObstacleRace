@@ -21,6 +21,8 @@ bool ModulePlayer::Start()
 	// Loading sounds
 	engineSound = App->audio->LoadFx("Audio/Sound Fx/engine.wav");
 	drivingSound = App->audio->LoadFx("Audio/Sound Fx/car.wav");
+	deathSound = App->audio->LoadFx("Audio/Sound Fx/death.wav");
+	winSound = App->audio->LoadFx("Audio/Sound Fx/win.wav");
 
 	// Creating car
 	VehicleInfo car;
