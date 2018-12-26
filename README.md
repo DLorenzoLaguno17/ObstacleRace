@@ -6,7 +6,7 @@ Go to our GitHub: https://github.com/DLorenzoLaguno17/ObstacleRace
 
 This game consists of a path the player must travel. Nevertheless, the labyrinthine path is filled with obstacles or simple puzzles that must be overcome in order to finish the level. The goal of the game is beat all those obstacles and arrive to the end of the level in the minimum time possible.
 
-Objects in blue mean that are interactible, while objects in read mean danger: if the player touches them, the player will return to the beginning of the level. Yellow cylinders are checkpoints: you must pass through the center of them to active the checkpoint.
+Objects in blue mean that are interactible, while objects in read mean danger: if the player touches them, the player will return to the beginning of the level, and also if it falls from the platforms. Yellow cylinders are checkpoints: you must pass through the center of them to active the checkpoint.
 
 ## Controls
 

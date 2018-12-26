@@ -259,11 +259,11 @@ update_status ModulePlayer::Update(float dt)
 	char title[80];
 
 	if(seconds % 60 < 10)
-		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 0%d:0%d", vehicle->GetKmh(), minutes, seconds % 60);
+		sprintf_s(title, "Obstacle Race v1.0 ~ Speed of the car: %.1f Km/h / Current time: 0%d:0%d", vehicle->GetKmh(), minutes, seconds % 60);
 	else if(minutes < 10)
-		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: 0%d:%d", vehicle->GetKmh(), minutes, seconds % 60);
+		sprintf_s(title, "Obstacle Race v1.0 ~ Speed of the car: %.1f Km/h / Current time: 0%d:%d", vehicle->GetKmh(), minutes, seconds % 60);
 	else
-		sprintf_s(title, "Obstacle Race ~ Speed of the car: %.1f Km/h / Current time: %d:%d", vehicle->GetKmh(), minutes, seconds % 60);
+		sprintf_s(title, "Obstacle Race v1.0 ~ Speed of the car: %.1f Km/h / Current time: %d:%d", vehicle->GetKmh(), minutes, seconds % 60);
 
 	App->window->SetTitle(title);
 
